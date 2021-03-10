@@ -293,3 +293,18 @@ Binding(CTRL+SHIFT+C,
 
 !ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-03-10 08:44:41.485
 !MESSAGE executing callback sts4.classpath.Ruhrnaqz SUCCESS [done]
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-03-10 11:41:35.839
+!MESSAGE ClasspathListenerHandler removeClasspathListener sts4.classpath.Ruhrnaqz
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-03-10 11:41:35.841
+!MESSAGE unsubscribing from classpath changes: sts4.classpath.Ruhrnaqz
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-03-10 11:41:35.842
+!MESSAGE subsribers = {}
+
+!ENTRY org.springframework.tooling.ls.eclipse.commons 1 0 2021-03-10 11:41:35.844
+!MESSAGE ClasspathListenerHandler removeClasspathListener sts4.classpath.Ruhrnaqz => OK
+
+!ENTRY org.eclipse.ui 2 2 2021-03-10 11:41:36.765
+!MESSAGE Invalid property category path: org.springframework.ide.eclipse.beans.ui.properties.ProjectPropertyPage (bundle: org.springframework.ide.eclipse.xml.namespaces, propertyPage: org.springframework.ide.eclipse.beans.ui.namespaces.projectPropertyPage)
