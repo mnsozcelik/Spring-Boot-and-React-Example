@@ -1,0 +1,9 @@
+package com.hoaxify.ws.user;
+
+@Data
+public class User {
+	private String username;
+	private String displayName;
+	private String password;
+	
+}
