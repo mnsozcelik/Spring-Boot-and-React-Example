@@ -1,0 +1,9 @@
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+spring:
+  h2:
+    console:
+      enabled: true
+  datasource:
+     username: sa

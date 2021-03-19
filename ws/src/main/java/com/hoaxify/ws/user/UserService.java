@@ -7,9 +7,9 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserService {
 	UserRepository userRepository;
-	
+
 	PasswordEncoder passwordEncoder;
-	
+
 	public UserService(UserRepository userRepository) {
 		this.userRepository = userRepository;
 		this.passwordEncoder = new BCryptPasswordEncoder();

@@ -1,0 +1,18 @@
+package com.hoaxify.ws.error;
+
+import java.util.Date;
+import java.util.Map;
+
+public class ApiError {
+
+	private int Status;
+	
+	private String message;
+	
+	private String path;
+	
+	private long timestamp = new Date().getTime();
+	
+	private Map<String, String> validationErrors;
+	
+}

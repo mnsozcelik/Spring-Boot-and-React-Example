@@ -1,0 +1,6 @@
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+spring:
+  datasources:
+     generate-unique-name: false

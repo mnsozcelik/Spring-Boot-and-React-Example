@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
+		<item key="selection" value="&lt;!-- &#x09;&#x09;&lt;dependency&gt; --&gt;"/>
+		<list key="findhistory">
+			<item value="&lt;!-- &#x09;&#x09;&lt;dependency&gt; --&gt;"/>
+		</list>
+	</section>
+</section>
