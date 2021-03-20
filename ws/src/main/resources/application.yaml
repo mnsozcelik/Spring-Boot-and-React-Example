@@ -8,6 +8,7 @@ spring:
         persistence:
           validation:
             mode: none
+            
 #  jpa:
 #    hibernate:
 #      ddl-auto: update

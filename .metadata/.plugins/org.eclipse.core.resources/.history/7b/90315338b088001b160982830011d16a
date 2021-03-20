@@ -1,0 +1,3 @@
+hoaxify.constraint.username.NotNull.message = Kullan\u0131c\u0131 ad\u0131 bo\u015F b\u0131rak\u0131lamaz.
+hoaxify.constraint.password.Pattern.message = \u015Eifrenizde en az 1 b\u00fcy\u00fck harf, 1 k\u00fc\u00e7\u00fck harf ve bir say\u0131 olmak zorundad\u0131r.
+hoaxify.constraint.username.Unique.message = Bu kullan\u0131c\u0131 ad kullan\u0131l\u0131y\u0131r
