@@ -1,8 +1,0 @@
-spring:
-  datasource:
-    username: sa
-    generate-unique-name: false
-#  jpa:
-#    hibernate:
-#      ddl-auto: update
-      

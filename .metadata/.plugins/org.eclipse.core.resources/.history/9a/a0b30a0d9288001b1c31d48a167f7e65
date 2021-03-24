@@ -1,6 +1,0 @@
-#  jpa:
-#    hibernate:
-#      ddl-auto: update
-spring:
-  datasources:
-     username: sa
