@@ -10,51 +10,20 @@ import {
   Switch,
 } from "react-router-dom";
 import TopBar from "../components/TopBar";
+import { connect } from "react-redux";
+// import { Authentication } from "../shared/AuthenticationContext";
 
 class App extends React.Component {
-  state = {
-    isLoggedIn: false,
-    username: undefined,
-  };
-
-  onLoginSuccess = (username) => {
-    this.setState({
-      username,
-      isLoggedIn: true,
-    });
-  };
-
-  onLogoutSuccess = () => {
-    this.setState({
-      username: undefined,
-      isLoggedIn: false,
-    });
-  };
+  // static contextType = Authentication;
   render() {
-    const { isLoggedIn, username } = this.state;
+    const { isLoggedIn } = this.props;
     return (
       <div className="row">
         <Router>
-          <TopBar
-            username={username}
-            isLoggedIn={isLoggedIn}
-            onLogoutSuccess={this.onLogoutSuccess}
-          />
+          <TopBar />
           <Switch>
             <Route exact path="/" component={HomePage} />
-            {!isLoggedIn && (
-              <Route
-                path="/login"
-                component={(reactRouterProps) => {
-                  return (
-                    <UserLoginPage
-                      {...reactRouterProps}
-                      onLoginSuccess={this.onLoginSuccess}
-                    />
-                  );
-                }}
-              />
-            )}
+            {!isLoggedIn && <Route path="/login" component={UserLoginPage} />}
             <Route path="/signup" component={UserSignupPage} />
             <Route path="/user/:username" component={UserPage} />
             <Redirect to="/" />
@@ -65,4 +34,10 @@ class App extends React.Component {
   }
 }
 
-export default App;
+const mapStateToProps = (store) => {
+  return {
+    isLoggedIn: store.isLoggedIn,
+  };
+};
+
+export default connect(mapStateToProps)(App);
