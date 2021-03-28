@@ -11,10 +11,8 @@ import {
 } from "react-router-dom";
 import TopBar from "../components/TopBar";
 import { connect } from "react-redux";
-// import { Authentication } from "../shared/AuthenticationContext";
 
 class App extends React.Component {
-  // static contextType = Authentication;
   render() {
     const { isLoggedIn } = this.props;
     return (

@@ -5,6 +5,7 @@ import ButtonWithProgress from "../components/ButtonWithProgress";
 import { withApiProgress } from "../shared/ApiProgress";
 import { connect } from "react-redux";
 import { signupHandler } from "../redux/authActions";
+
 class UserSignupPage extends React.Component {
   state = {
     username: null,
