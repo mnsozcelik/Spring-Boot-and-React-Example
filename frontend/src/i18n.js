@@ -13,6 +13,10 @@ i18n.use(initReactI18next).init({
         "Password Repeat": "Password Repeat",
         "Password mismatch": "Password mismatch",
         "Logout": "Logout", 
+        "Users": "Users",
+        "Next": "Next >",
+        "Previous": "< Previous",
+        "Load Failure": "Load Failure"
       },
     },
     tr: {
@@ -25,6 +29,10 @@ i18n.use(initReactI18next).init({
         "Password Repeat": "Şifre Tekrarı",
         "Password mismatch": "Aynı şifreyi giriniz",
         "Logout": "Çıkış",
+        "Users": "Kullanıcılar",
+        "Next": "İleri >",
+        "Previous": "< Geri",
+        "Load Failure": "Yükleme Hatası"
       },
     },
   },

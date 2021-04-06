@@ -1,13 +1,22 @@
 import React from "react";
 import logo from "../assets/hoaxify.png";
 import { Link } from "react-router-dom";
-import { withTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import LanguageSelector from "../components/LanguageSelector";
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logoutSuccess } from "../redux/authActions";
 
 const TopBar = (props) => {
-  const { t, username, isLoggedIn, onLogoutSuccess } = props;
+  const { t } = useTranslation();
+  const reduxState = useSelector((store) => ({
+    isLoggedIn: store.isLoggedIn,
+    username: store.username,
+  }));
+  const { username, isLoggedIn } = reduxState;
+  const dispatch = useDispatch();
+  const onLogoutSuccess = () => {
+    dispatch(logoutSuccess())
+  };
   let links = (
     <ul className="nav navbar-nav ml-auto">
       <li>
@@ -33,11 +42,7 @@ const TopBar = (props) => {
             {username}
           </Link>
         </li>
-        <li
-          className="nav-link"
-          onClick={onLogoutSuccess}
-          style={{ cursor: "pointer" }}
-        >
+        <li className="nav-link" onClick={onLogoutSuccess} style={{ cursor: "pointer" }}>
           {t("Logout")}
         </li>
         <li>
@@ -60,22 +65,4 @@ const TopBar = (props) => {
   );
 };
 
-const TopBarWithTranslation = withTranslation()(TopBar);
-
-const mapStateToProps = (store) => {
-  return {
-    isLoggedIn: store.isLoggedIn,
-    username: store.username,
-  };
-};
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onLogoutSuccess: () => dispatch(logoutSuccess()),
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(TopBarWithTranslation);
+export default TopBar;

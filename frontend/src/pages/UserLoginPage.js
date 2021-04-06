@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from "react";
 import Input from "../components/Input";
-import { withTranslation } from "react-i18next";
+import { useTranslation } from "react-i18next";
 import ButtonWithProgress from "../components/ButtonWithProgress";
-import { withApiProgress } from "../shared/ApiProgress";
-import { connect } from "react-redux";
+import { useApiProgress } from "../shared/ApiProgress";
+import { useDispatch } from "react-redux";
 import { loginHandler } from "../redux/authActions";
-// import {Authentication} from '../shared/AuthenticationContext';
-const UserLoginPage = (props) => {
-// static contextType = Authentication;
 
+const UserLoginPage = (props) => {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [error, setError] = useState();
-  
-  useEffect(()=>{
-    setError(undefined)
-  },[username, password])
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    setError(undefined);
+  }, [username, password]);
 
   const onClickLogin = async (event) => {
     event.preventDefault();
@@ -23,11 +22,11 @@ const UserLoginPage = (props) => {
       username,
       password,
     };
-    const { history, dispatch } = props;
+    const { history } = props;
     const { push } = history;
 
     setError(undefined);
-
+    
     try {
       await dispatch(loginHandler(creds));
       push("/");
@@ -36,7 +35,9 @@ const UserLoginPage = (props) => {
     }
   };
 
-  const { t, pendingApiCall } = props;
+  const { t } = useTranslation();
+  const  pendingApiCallLogin  = useApiProgress('/api/1.0/auth') ;
+  const pendingApiCall = pendingApiCallLogin;
   const buttonEnabled = username && password;
   return (
     <div className="container">
@@ -44,7 +45,8 @@ const UserLoginPage = (props) => {
         <h1 className="text-center">{t("Login")}</h1>
         <Input
           label={t("Username")}
-          onChange={(event) => setUsername(event.target.value)}/>
+          onChange={(event) => setUsername(event.target.value)}
+        />
         <Input
           label={t("Password")}
           type="password"
@@ -64,11 +66,4 @@ const UserLoginPage = (props) => {
   );
 };
 
-const UserLoginPageWithTranslation = withTranslation()(UserLoginPage);
-
-const UserLoginPageWithApiProgress = withApiProgress(
-  UserLoginPageWithTranslation,
-  "/api/1.0/auth"
-);
-
-export default connect()(UserLoginPageWithApiProgress);
+export default UserLoginPage;
