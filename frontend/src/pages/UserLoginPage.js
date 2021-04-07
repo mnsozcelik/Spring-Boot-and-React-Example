@@ -26,7 +26,7 @@ const UserLoginPage = (props) => {
     const { push } = history;
 
     setError(undefined);
-    
+
     try {
       await dispatch(loginHandler(creds));
       push("/");
@@ -36,7 +36,7 @@ const UserLoginPage = (props) => {
   };
 
   const { t } = useTranslation();
-  const  pendingApiCallLogin  = useApiProgress('/api/1.0/auth') ;
+  const pendingApiCallLogin = useApiProgress("post","/api/1.0/auth");
   const pendingApiCall = pendingApiCallLogin;
   const buttonEnabled = username && password;
   return (
