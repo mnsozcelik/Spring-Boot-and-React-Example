@@ -3,6 +3,7 @@ import { getUsers } from "../api/apiCalls";
 import { useTranslation } from "react-i18next";
 import UserListItem from "./UserListItem";
 import { useApiProgress } from "../shared/ApiProgress";
+import Spinner from "./Spinner";
 
 const UserList = () => {
   const [page, setPage] = useState({
@@ -42,46 +43,28 @@ const UserList = () => {
   const { content: users, last, first } = page;
   let actionDiv = (
     <div className="card-footer">
-      {first === false ? (
+      {first === false && (
         <button
           className="btn btn-sm bg-secondary text-white font-weight-bold rounded-pill shadow-sm"
           onClick={onClickPrevious}
         >
           {t("Previous")}
         </button>
-      ) : (
-        <button
-          className="btn btn-sm bg-secondary text-white font-weight-bold rounded-pill shadow-sm"
-          onClick={onClickPrevious}
-          disabled="true"
-        >
-          {t("Previous")}
-        </button>
-      )}
-      {last === false ? (
+      ) }
+      {last === false && (
         <button
           className="btn btn-sm bg-secondary text-white font-weight-bold rounded-pill shadow-sm float-right "
           onClick={onClickNext}
         >
           {t("Next")}
         </button>
-      ) : (
-        <button
-          className="btn btn-sm bg-secondary text-white font-weight-bold rounded-pill shadow-sm float-right "
-          onClick={onClickNext}
-          disabled="false"
-        >
-          {t("Next")}
-        </button>
-      )}
+      ) }
     </div>
   );
 
   if (pendingApiCall) {
     actionDiv = (
-      <div class="text-center">
-        <div class="spinner-border text-primary" role="status" />
-      </div>
+      <Spinner/>
     );
   }
   return (
