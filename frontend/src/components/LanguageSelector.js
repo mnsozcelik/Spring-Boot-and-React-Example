@@ -10,10 +10,10 @@ const LanguageSelector = (props) => {
   };
 
   return (
-    <div className="container">
+    <div className="container" {...props} >
       <img
         src="https://www.countryflags.io/tr/flat/32.png"
-        alt="Tukish Flag"
+        alt="Turkish Flag"
         onClick={() => onChangeLanguage("tr")}
         style={{ cursor: "pointer" }}
       />
