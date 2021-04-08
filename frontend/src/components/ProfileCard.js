@@ -19,6 +19,7 @@ const ProfileCard = (props) => {
   const pathUsername = routeParams.username;
   const [user, setUser] = useState({});
   const [editable, setEditable] = useState(false);
+  const [newImage, setNewImage] = useState();
 
   useEffect(() => {
     setUser(props.user);
@@ -34,20 +35,38 @@ const ProfileCard = (props) => {
   useEffect(() => {
     if (!inEditMode) {
       setUpdatedDisplayName(undefined);
+      setNewImage(undefined);
     } else {
       setUpdatedDisplayName(displayName);
     }
   }, [inEditMode, displayName]);
 
   const onClickSave = async () => {
+    let image;
+    if(newImage){
+      image = newImage.split(',')[1]
+    }
     const body = {
       displayName: updatedDisplayName,
+      image
     };
     try {
       const response = await updateUser(username, body);
       setInEditMode(false);
       setUser(response.data);
     } catch (error) {}
+  };
+
+  const onChangeFile = (event) => {
+    if(event.target.files.length<1){
+      return;
+    }
+    const file = event.target.files[0];
+    const fileReader = new FileReader();
+    fileReader.onloadend = () => {
+      setNewImage(fileReader.result);
+    };
+    fileReader.readAsDataURL(file);
   };
 
   const pendingApiCall = useApiProgress("put", "/api/1.0/users/" + username);
@@ -68,8 +87,8 @@ const ProfileCard = (props) => {
           </div>
         )}
       </div>
-      <div className="card-body p-0 ">
-        <div className="row p-0">
+      <div className="card-body pl-0">
+        <div className="row ">
           <div className="col-sm-3 ml-3 ">
             <ProfileImageWithDefault
               className="rounded-circle shadow"
@@ -77,10 +96,15 @@ const ProfileCard = (props) => {
               height="200"
               alt={`${username} profile`}
               image={image}
+              tempimage={newImage}
             ></ProfileImageWithDefault>
           </div>
-          <div className="col-sm-8 m-auto text-left ">
-            <h4>@{username}</h4>
+          <div className="col-sm-8 m-auto text-center ">
+            <h1>
+              <span className="badge badge-sm rounded text-white bg-primary">
+                @{username}
+              </span>
+            </h1>
           </div>
         </div>
       </div>
@@ -99,6 +123,7 @@ const ProfileCard = (props) => {
         )}
         {inEditMode && (
           <div>
+            <input type="file" onChange={onChangeFile} className="float-left" />
             <ButtonWithProgress
               className="btn btn-success btn-rounded d-inline-flex rounded-pill waves-effect"
               onClick={onClickSave}

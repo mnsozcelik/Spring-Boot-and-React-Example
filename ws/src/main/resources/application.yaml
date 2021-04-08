@@ -1,3 +1,5 @@
+
+
 spring:
   datasource:
     username: sa
@@ -8,11 +10,17 @@ spring:
         persistence:
           validation:
             mode: none
+            
   data:    web:      pageable:        default-page-size: 10
-        max-page-size: 100
-        
+        max-page-size: 100  profiles:    active:    - dev
+       
+hoaxify:  upload-path:  picture-storage
+  
+---
+spring:  profiles: production
+hoaxify:  upload-path: storage-production
+---
+spring:  profiles: dev
+hoaxify:  upload-path: storage-dev
                 
-#  jpa:
-#    hibernate:
-#      ddl-auto: update
 
