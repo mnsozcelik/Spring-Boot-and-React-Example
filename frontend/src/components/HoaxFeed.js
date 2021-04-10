@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router";
 import { getHoaxes } from "../api/apiCalls";
 import { useApiProgress } from "../shared/ApiProgress";
 import HoaxView from "./HoaxView";
@@ -12,14 +13,19 @@ const HoaxFeed = () => {
     number: 0,
   });
   const { t } = useTranslation();
-  const pendingApiCall = useApiProgress("get", "/api/1.0/hoaxes");
+  const { username } = useParams();
+
+  const path = username
+    ? `api/1.0/users/${username}/hoaxes?page=`
+    : "/api/1.0/hoaxes?page=";
+  const pendingApiCall = useApiProgress("get", path);
   useEffect(() => {
     loadHoaxes();
   }, []);
 
   const loadHoaxes = async (page) => {
     try {
-      const response = await getHoaxes(page);
+      const response = await getHoaxes(username, page);
       setHoaxPage((previousHoaxPage) => ({
         ...response.data,
         content: [...previousHoaxPage.content, ...response.data.content],
@@ -31,7 +37,7 @@ const HoaxFeed = () => {
   if (content.length === 0) {
     return (
       <div className="alert alert-secondary text-center">
-        {pendingApiCall ? <Spinner /> :t("There are no hoaxes.")}
+        {pendingApiCall ? <Spinner /> : t("There are no hoaxes.")}
       </div>
     );
   }
@@ -44,7 +50,7 @@ const HoaxFeed = () => {
       {!last && (
         <div
           className="alert alert-secondary text-center"
-          onClick={pendingApiCall ? () => { } : () => loadHoaxes(number + 1)}
+          onClick={pendingApiCall ? () => {} : () => loadHoaxes(number + 1)}
           style={{ cursor: pendingApiCall ? "wait" : "pointer" }}
         >
           {pendingApiCall ? <Spinner /> : t("Load More..")}

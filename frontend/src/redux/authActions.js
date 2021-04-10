@@ -13,11 +13,11 @@ export const loginSuccess = (authState) => {
   };
 };
 
-export const updateSuccess = ({displaName, image}) => {
+export const updateSuccess = ({displayName, image}) => {
   return{
     type: ACTIONS.UPDATE_SUCCESS,
     payload:{
-      displaName, image
+      displayName, image
     }
   }
 };

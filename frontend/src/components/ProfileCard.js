@@ -64,7 +64,7 @@ const ProfileCard = (props) => {
       image = newImage.split(",")[1];
     }
     const body = {
-      displayName: updatedDisplayName,
+      displayName : updatedDisplayName,
       image,
     };
     try {
