@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { postHoax } from "../api/apiCalls";
 import { useApiProgress } from "../shared/ApiProgress";
@@ -9,7 +8,6 @@ import ProfileImageWithDefault from "./ProfileImageWithDefault";
 const HoaxSubmit = () => {
   const { image } = useSelector((store) => ({ image: store.image }));
   const [focused, setFocused] = useState(false);
-  const { t } = useTranslation();
   const [hoax, setHoax] = useState("");
   const [errors, setErrors] = useState({});
 
