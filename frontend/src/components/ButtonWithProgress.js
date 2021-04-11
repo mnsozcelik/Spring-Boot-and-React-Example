@@ -11,7 +11,7 @@ const ButtonWithProgress = (props) => {
     >
       {pendingApiCall ? (
         <div
-          className="spinner-grow spinner-grow-sm text-light"
+          className="spinner-grow spinner-grow-sm text-light m-auto"
           role="status"
         />
       ) : (
