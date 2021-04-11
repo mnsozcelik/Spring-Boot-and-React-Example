@@ -64,7 +64,7 @@ const ProfileCard = (props) => {
       image = newImage.split(",")[1];
     }
     const body = {
-      displayName : updatedDisplayName,
+      displayName: updatedDisplayName,
       image,
     };
     try {
@@ -111,24 +111,30 @@ const ProfileCard = (props) => {
         )}
       </div>
       <div className="card-body pl-0">
-        <div className="row ">
-          <div className="col-sm-3 ml-3 ">
-            <ProfileImageWithDefault
-              className="rounded-circle shadow"
-              width="200"
-              height="200"
-              alt={`${username} profile`}
-              image={image}
-              tempimage={newImage}
-            ></ProfileImageWithDefault>
-          </div>
-          <div className="col-sm-8 m-auto text-center ">
-            <h1>
-              <span className="badge badge-sm rounded text-white bg-primary">
-                @{username}
-              </span>
-            </h1>
-          </div>
+        <div className="row d-flex justify-content-center">
+          <ProfileImageWithDefault
+            className="rounded-circle shadow"
+            width="200"
+            height="200"
+            alt={`${username} profile`}
+            image={image}
+            tempimage={newImage}
+          ></ProfileImageWithDefault>
+        </div>
+        {inEditMode && (
+          <Input
+            type="file"
+            onChange={onChangeFile}
+            error={imageError}
+            className="m-auto float-right"
+          />
+        )}
+        <div className="row m-0 p-0 text-center">
+          <h1 className="col mt-3 m-0 p-0 text-center">
+            <span className=" m-0 p-0 rounded text-white bg-primary">
+              @{username}
+            </span>
+          </h1>
         </div>
       </div>
       <div className="card-footer text-right">
@@ -145,18 +151,16 @@ const ProfileCard = (props) => {
           </button>
         )}
         {inEditMode && (
-          <div>
-            <Input
-              type="file"
-              onChange={onChangeFile}
-              error={imageError}
-              className="float-left"
-            />
+          <div className="text-right mt-1 b btn-group float-right">
             <ButtonWithProgress
-              className="btn btn-success btn-rounded d-inline-flex rounded-pill waves-effect"
+              className="btn btn-success  d-inline-flex "
               onClick={onClickSave}
               disabled={pendingApiCall}
               pendingApiCall={pendingApiCall}
+              style={{
+                borderBottomLeftRadius: 20,
+                borderTopLeftRadius: 20,
+              }}
               text={
                 <>
                   <i className="material-icons">save</i>
@@ -166,14 +170,17 @@ const ProfileCard = (props) => {
             />
             <button
               type="button"
-              className="btn btn-danger btn-rounded d-inline-flex rounded-pill waves-effect ml-3"
+              className="btn btn-danger d-inline-flex "
               onClick={() => setInEditMode(false)}
               disabled={pendingApiCall}
+              style={{
+                borderBottomRightRadius: 20,
+                borderTopRightRadius: 20,
+              }}
             >
-              <span className="material-icons" aria-hidden="true">
-                cancel
+              <span className="material-icons m-0 p-0" aria-hidden="true">
+                close
               </span>
-              {t("Cancel")}
             </button>
           </div>
         )}
