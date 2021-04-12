@@ -5,10 +5,11 @@ import { useTranslation } from "react-i18next";
 
 import ProfileImageWithDefault from "./ProfileImageWithDefault";
 import Input from "./Input";
-import { updateUser } from "../api/apiCalls";
+import { deleteUser, updateUser } from "../api/apiCalls";
 import { useApiProgress } from "../shared/ApiProgress";
 import ButtonWithProgress from "./ButtonWithProgress";
 import { updateSuccess } from "../redux/authActions";
+import Modal from "./Modal";
 
 const ProfileCard = (props) => {
   const [inEditMode, setInEditMode] = useState(false);
@@ -23,6 +24,7 @@ const ProfileCard = (props) => {
   const [editable, setEditable] = useState(false);
   const [newImage, setNewImage] = useState();
   const [validationErrors, setValidationErrors] = useState({});
+  const [modalVisible, setModalVisible] = useState(false);
 
   useEffect(() => {
     setUser(props.user);
@@ -47,6 +49,13 @@ const ProfileCard = (props) => {
   }, [newImage]);
 
   const { username, displayName, image } = user;
+
+  const pendingApiCallDeleteUser = useApiProgress(
+    "delete",
+    `/api/1.0/users/${username}`,
+    true
+  );
+
   const { t } = useTranslation();
 
   useEffect(() => {
@@ -87,6 +96,15 @@ const ProfileCard = (props) => {
       setNewImage(fileReader.result);
     };
     fileReader.readAsDataURL(file);
+  };
+
+  const onClickCancel = () => {
+    setModalVisible(false);
+  };
+
+  const onClickDeleteUser = async () => {
+    await deleteUser(username);
+    setModalVisible(false);
   };
 
   const pendingApiCall = useApiProgress("put", "/api/1.0/users/" + username);
@@ -137,18 +155,30 @@ const ProfileCard = (props) => {
           </h1>
         </div>
       </div>
-      <div className="card-footer text-right">
+      <div className="card-footer text-center">
         {editable && !inEditMode && (
-          <button
-            type="button"
-            className="btn btn-info btn-rounded d-inline-flex rounded-pill waves-effect"
-            onClick={() => setInEditMode(true)}
-          >
-            <span className="material-icons" aria-hidden="true">
-              edit
-            </span>
-            {t("Edit")}
-          </button>
+          <>
+            <button
+              className="btn btn-info btn-rounded d-inline-flex rounded-pill waves-effect "
+              onClick={() => setInEditMode(true)}
+            >
+              <span className="material-icons" aria-hidden="true">
+                edit
+              </span>
+              {t("Edit")}
+            </button>
+            <div className="pt-2">
+              <button
+                className="btn btn-danger btn-rounded d-inline-flex rounded-pill waves-effect "
+                onClick={() => setModalVisible(true)}
+              >
+                <span className="material-icons" aria-hidden="true">
+                  directions_run
+                </span>
+                {t("Delete My Account")}
+              </button>
+            </div>
+          </>
         )}
         {inEditMode && (
           <div className="text-right mt-1 b btn-group float-right">
@@ -185,6 +215,15 @@ const ProfileCard = (props) => {
           </div>
         )}
       </div>
+      <Modal
+        visible={modalVisible}
+        title={t("Delete My Account")}
+        okButton={t("Delete My Account")}
+        onClickCancel={onClickCancel}
+        onClickOk={onClickDeleteUser}
+        message={t("Are you sure to delete your account.")}
+        pendingApiCall={pendingApiCallDeleteUser}
+      />
     </div>
   );
 };

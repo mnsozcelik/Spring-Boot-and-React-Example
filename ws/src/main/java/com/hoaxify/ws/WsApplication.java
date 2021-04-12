@@ -16,6 +16,13 @@ public class WsApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(WsApplication.class, args);
+		
+		//view all beans
+//		ApplicationContext applicationContext =  SpringApplication.run(WsApplication.class, args);
+//		String[] allBeanNames = applicationContext.getBeanDefinitionNames();
+//		for(String beanName : allBeanNames) {
+//			System.out.println(beanName);
+//		}
 	}
 
 	@Bean
