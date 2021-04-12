@@ -1,39 +1,36 @@
-package com.hoaxify.ws.hoax;
+package com.hoaxify.ws.file;
 
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-import com.hoaxify.ws.file.FileAttachment;
-import com.hoaxify.ws.user.User;
+import com.hoaxify.ws.hoax.Hoax;
 
 import lombok.Data;
 
 @Data
 @Entity
-public class Hoax {
+public class FileAttachment {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-
-	@Column(length = 1000)
-	private String content;
+	
+	private String name;
+	
+	private String fileType;
 
 	@Temporal(TemporalType.TIMESTAMP)
-	private Date timestamp;
-
-	@ManyToOne
-	private User user;
+	private Date date;
 	
-	@OneToOne(mappedBy = "hoax")
-	private FileAttachment fileAttachment;
+	@OneToOne
+	private Hoax hoax;
+	
+	
 }
