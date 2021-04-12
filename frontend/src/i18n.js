@@ -27,6 +27,11 @@ i18n.use(initReactI18next).init({
         "There are no hoaxes.": "There are no hoaxes.",
         "Load More..": "Load More..",
         "There are new hoaxes.": "There are new hoaxes.",
+        "Delete Hoax": "Delete Hoax",
+        "Are you sure to delete Hoax.": "Are you sure to delete Hoax.",
+        "Delete My Account": "Delete My Account",
+        "Are you sure to delete your account.":
+          "Are you sure to delete your account.",
       },
     },
     tr: {
@@ -51,7 +56,12 @@ i18n.use(initReactI18next).init({
         "My Profile": "Hesabım",
         "There are no hoaxes.": "Hoax bulunamadı.",
         "Load More..": "Daha Fazla..",
-        "There are new hoaxes.": "Yeni Hoax"
+        "There are new hoaxes.": "Yeni Hoax",
+        "Delete Hoax": "Hoax'u Sil",
+        "Are you sure to delete Hoax.":
+          "Hoax'u silmek istediğinize emin misiniz?",
+        "Delete My Account": "Hesabımı Sil",
+        "Are you sure to delete your account.": "Hesabınızı silmek istediğinize emin misiniz?"
       },
     },
   },

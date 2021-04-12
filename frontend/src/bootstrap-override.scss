@@ -1,3 +1,11 @@
 $primary: rgb(0, 153, 255);
 @import '~bootstrap/scss/bootstrap.scss';
 @import '~bootstrap-icons/font/bootstrap-icons.css';
+
+.btn-delete-link{
+    color: $gray-600;
+}
+
+.btn-delete-link:hover {
+    color: $danger;
+}

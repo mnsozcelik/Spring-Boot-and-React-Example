@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.hoaxify.ws.file.FileAttachment;
 import com.hoaxify.ws.file.FileAttachmentRepository;
+import com.hoaxify.ws.file.FileService;
 import com.hoaxify.ws.hoax.vm.HoaxSubmitVM;
 import com.hoaxify.ws.user.User;
 import com.hoaxify.ws.user.UserService;
@@ -22,24 +23,29 @@ public class HoaxService {
 	HoaxRepository hoaxRepository;
 
 	UserService userService;
-	
+
 	FileAttachmentRepository fileAttachmentRepository;
 
-	public HoaxService(HoaxRepository hoaxRepository, UserService userService, FileAttachmentRepository fileAttachmentRepository) {
+	FileService fileService;
+
+	public HoaxService(HoaxRepository hoaxRepository, UserService userService, FileAttachmentRepository fileAttachmentRepository,
+			FileService fileService) {
 		super();
 		this.hoaxRepository = hoaxRepository;
-		this.userService = userService;
 		this.fileAttachmentRepository = fileAttachmentRepository;
+		this.fileService = fileService;
+		this.userService = userService;
 	}
-
+	
 	public void save(HoaxSubmitVM hoaxSubmitVM, User user) {
 		Hoax hoax = new Hoax();
 		hoax.setContent(hoaxSubmitVM.getContent());
 		hoax.setTimestamp(new Date());
 		hoax.setUser(user);
 		hoaxRepository.save(hoax);
-		Optional<FileAttachment> optionalFileAttachment = fileAttachmentRepository.findById(hoaxSubmitVM.getAttachmentId());
-		if(optionalFileAttachment.isPresent()) {
+		Optional<FileAttachment> optionalFileAttachment = fileAttachmentRepository
+				.findById(hoaxSubmitVM.getAttachmentId());
+		if (optionalFileAttachment.isPresent()) {
 			FileAttachment fileAttachment = optionalFileAttachment.get();
 			fileAttachment.setHoax(hoax);
 			fileAttachmentRepository.save(fileAttachment);
@@ -101,4 +107,12 @@ public class HoaxService {
 		};
 	}
 
+	public void delete(long id) {
+		Hoax inDB = hoaxRepository.getOne(id);
+		if (inDB.getFileAttachment() != null) {
+			String fileName = inDB.getFileAttachment().getName();
+			fileService.deleteAttachmentFile(fileName);
+		}
+		hoaxRepository.deleteById(id);
+	}
 }

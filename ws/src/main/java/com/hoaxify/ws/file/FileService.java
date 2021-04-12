@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.hoaxify.ws.configuration.AppConfiguration;
+import com.hoaxify.ws.user.User;
 
 @Service
 @EnableScheduling
@@ -118,6 +119,15 @@ public class FileService {
 			fileAttachmentRepository.deleteById(file.getId());
 		}
 
+	}
+
+	public void deleteAllStoredFilesForUser(User inDB) {
+		deleteProfileImage(inDB.getImage());
+		List<FileAttachment> filesToBeRemoved = fileAttachmentRepository.findByHoaxUser(inDB);
+		for(FileAttachment file: filesToBeRemoved) {
+			deleteAttachmentFile(file.getName());
+		}
+		
 	}
 
 }
